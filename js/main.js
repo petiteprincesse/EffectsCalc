@@ -1,5 +1,6 @@
 "use strict";
 
+// a - ед.изм.вр, b - сколько. рез-т - время в минутах
 let reduction = function (a, b) {
   switch (a) {
     case "minutes":
@@ -26,6 +27,7 @@ let reduction = function (a, b) {
   return b;
 };
 
+// перевод минут в выбранное в отчете время
 let simplifier = function (a, b) {
   switch (a) {
     case "minutes":
@@ -87,11 +89,11 @@ let btnPlus = document.querySelector(".add-btn");
 btnPlus.addEventListener("click", addFlow);
 
 let btnSearch = document.querySelector(".search"),
-btnCloseModal = document.querySelector(".close");
+  btnCloseModal = document.querySelector(".close");
 
 let modalWindow = document.querySelector(".modal");
 
-let modal = function() {
+let modal = function () {
   modalWindow.classList.toggle("modal--opened");
 };
 
@@ -130,6 +132,7 @@ let flowsDataTreatment = function () {
   let flowType, flowInfo, flowTimeUnit, flowFrequencyBefore, flowFrequencyAfter;
   let fullFlowsFrequencyBefore = 1;
   let fullFlowsFrequencyAfter = 1;
+  process.processInfo.flowsData = [];
   flowItems.forEach(function (item) {
     flowType = item.querySelector(".flow-choice").value;
     flowInfo = item.querySelector(".flow-input").value;
@@ -143,9 +146,7 @@ let flowsDataTreatment = function () {
       flowFrequencyBefore: flowFrequencyBefore,
       flowFrequencyAfter: flowFrequencyAfter,
     };
-    process.processInfo.flowsData = [];
     process.processInfo.flowsData.push(flowDataObject);
-    
     flowFrequencyBefore = simplifier(flowTimeUnit, flowFrequencyBefore);
     flowFrequencyAfter = simplifier(flowTimeUnit, flowFrequencyAfter);
     fullFlowsFrequencyBefore *= flowFrequencyBefore;
@@ -187,7 +188,7 @@ let createReportData = function () {
     flowsTotalQuantityAfter = flowsTotalFrequency[1] * reportTotalPeriod[0],
     requiredTotalTimeBefore = flowsTotalQuantityBefore * processTotalTime[0],
     requiredTotalTimeAfter = flowsTotalQuantityBefore * processTotalTime[1],
-  automationBenefits = requiredTotalTimeBefore - requiredTotalTimeAfter;
+    automationBenefits = requiredTotalTimeBefore - requiredTotalTimeAfter;
   let reportData = {
     processTimeBefore: simplifier(reportTotalPeriod[1], processTotalTime[0]),
     processTimeAfter: simplifier(reportTotalPeriod[1], processTotalTime[1]),
@@ -209,13 +210,24 @@ let createReportData = function () {
   };
   timeBefore.textContent = Math.floor(reportData.processTimeBefore);
   timeAfter.textContent = Math.floor(reportData.processTimeAfter);
-  flowsFrequencyBefore.textContent = Math.floor(reportData.flowsTotalFrequencyBefore);
-  flowsFrequencyAfter.textContent = Math.floor(reportData.flowsTotalFrequencyAfter);
-  flowsQuantityBefore.textContent = Math.floor(reportData.flowsTotalQuantityBefore);
-  flowsQuantityAfter.textContent = Math.floor(reportData.flowsTotalQuantityAfter);
-  requiredTimeBefore.textContent = Math.floor(reportData.requiredTotalTimeBefore);
+  flowsFrequencyBefore.textContent = Math.floor(
+    reportData.flowsTotalFrequencyBefore
+  );
+  flowsFrequencyAfter.textContent = Math.floor(
+    reportData.flowsTotalFrequencyAfter
+  );
+  flowsQuantityBefore.textContent = Math.floor(
+    reportData.flowsTotalQuantityBefore
+  );
+  flowsQuantityAfter.textContent = Math.floor(
+    reportData.flowsTotalQuantityAfter
+  );
+  requiredTimeBefore.textContent = Math.floor(
+    reportData.requiredTotalTimeBefore
+  );
   requiredTimAfter.textContent = Math.floor(reportData.requiredTotalTimeAfter);
   result.textContent = Math.floor(reportData.automationBenefits);
+
   process.reportInfo.reportData = {
     comment: process.reportInfo.reportSettings.comment,
     reportDataValues: reportData,
@@ -225,7 +237,9 @@ let createReportData = function () {
 let storageDataUpdate = function () {
   let date = formatDate();
   data[date] = process;
+  console.log(data);
   localStorage.data = JSON.stringify(data);
+  console.log(data);
 };
 
 let dataInput = document.querySelector(".data-input");
@@ -234,3 +248,35 @@ dataInput.addEventListener("submit", function (event) {
   createReportData();
   storageDataUpdate();
 });
+
+let n = Object.keys(data).length;
+console.log(n);
+
+let reportBlock = document.querySelectorAll(".report-block");
+
+let showAllBlocks = function () {
+  let cloneReportBlock;
+  for (let i = 0; i < n - 1; i++) {
+    cloneReportBlock = reportBlock[i].cloneNode(true);
+    reportBlock[i].after(cloneReportBlock);
+    reportBlock = document.querySelectorAll(".report-block");
+  }
+  console.log(reportBlock.length);
+  let i = 0;
+  for (const info in data) {
+    // let commentValue = data[info].reportInfo.reportData;
+    // console.log('commentValue: ', commentValue);
+    let textValue = `${data[info]} от ${info}`;
+    textValue = textValue.trim();
+    // let textValueLength = textValue.length;
+    if (textValue.length > 30) {
+      textValue = textValue.substr(0, 30) + "... ";
+    }
+    reportBlock[i].querySelector(
+      ".report-data"
+    ).textContent = textValue;
+    i++;
+  }
+};
+
+showAllBlocks();
