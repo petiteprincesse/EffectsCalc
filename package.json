@@ -1,0 +1,26 @@
+{
+  "name": "EffectsCalc",
+  "version": "1.0.0",
+  "description": "Калькулятор эффекта от автоматизации для проекта: [Landing Page](https://petiteprincesse.github.io/EffectsCalc/)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petiteprincesse/EffectsCalc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petiteprincesse/EffectsCalc/issues"
+  },
+  "homepage": "https://github.com/petiteprincesse/EffectsCalc#readme",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}
