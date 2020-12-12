@@ -1,5 +1,7 @@
 "use strict";
 
+const storage = new Storage();
+
 // a - ед.изм.вр, b - сколько. рез-т - время в минутах
 let reduction = function (a, b) {
   switch (a) {
@@ -280,3 +282,25 @@ let showAllBlocks = function () {
 };
 
 showAllBlocks();
+
+class Storage {
+  static key = 'data';
+
+  save(name, data) {
+    const current = this._getCurrent();
+    current[name] = data;
+    localStorage.set(Storage.key, JSON.stringify(current));
+  }
+
+  search(query) {
+    const current = this._getCurrent();
+
+    return Object.keys(current)
+        .filter(key => key.startsWith(query))
+        .map(key => current[key])
+  }
+
+  _getCurrent() {
+    return JSON.parse(localStorage.get(Storage.key) || '{}');
+  }
+}
