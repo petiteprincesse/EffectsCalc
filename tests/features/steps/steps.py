@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+from selenium.webdriver.support.ui import Select
 
 
 @step('открыть "{url}"')
@@ -34,6 +35,13 @@ def screenshot(context):
     element = context.browser.find_element_by_tag_name('body')
     element.screenshot("screenshot_full1.png")
     # element.save_screenshot("screenshot_full.png")
+
+
+@step('в селекте "{select_id}" выбрать "{visible_value}"')
+def choose_select(context, select_id, visible_value):
+    time.sleep(0.9)
+    element = Select(context.browser.find_element_by_id(select_id))
+    element.select_by_visible_text(visible_value)
 
 
 @step('конец')
