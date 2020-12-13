@@ -17,7 +17,7 @@ body {
   margin: auto;
 }
 
-form {
+.calc-form {
   padding: 3rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -172,17 +172,21 @@ select {
   cursor: pointer;
 }
 
-.start {
+.btn-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.btn {
   max-width: 10rem;
   text-decoration: none;
   text-align: center;
   padding: 11px 25px;
-  align-self: end;
-  margin-top: 3rem;
-  margin-left: 43%;
   border: none;
   border-radius: 4px;
-  font-style: monospace;
   text-transform: uppercase;
   color: #000000;
   background-color: #cee3f8;
@@ -190,12 +194,11 @@ select {
   box-shadow: 4px 4px 6px #59626a;
 }
 
-.start:hover {
+.btn:hover {
   cursor: pointer;
   padding: 11px 25px;
   border: none;
   border-radius: 4px;
-  font-style: monospace;
   font-weight: bold;
   color: #000000;
   background-color: #cee3f8;
@@ -203,7 +206,7 @@ select {
   box-shadow: 2px 2px 7px #59626a;
 }
 
-.start:active {
+.btn:active {
   text-decoration: none;
   border: none;
 }
@@ -268,7 +271,7 @@ th {
   background-color: #7accee;
 }
 
-footer {
+.page-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -434,4 +437,19 @@ a {
 .report-block:hover {
   border: 1px solid gray;
   background-color: #F0F8FF;
+}
+
+.name-form {
+  align-items: center;
+  display: none;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.name-form__visible {
+  display: flex;
+}
+
+.report-section {
+  margin-top: 32px;
 }

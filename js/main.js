@@ -1,5 +1,25 @@
 "use strict";
 
+class Storage {
+  static key = 'data';
+
+  save(name, data) {
+    const current = this._getCurrent();
+    current.push(data);
+    localStorage.setItem(Storage.key, JSON.stringify(current));
+  }
+
+  getAll() {
+    return this._getCurrent();
+  }
+
+  _getCurrent() {
+    return JSON.parse(localStorage.getItem(Storage.key) || '[]');
+  }
+}
+
+const storage = new Storage();
+
 // a - ед.изм.вр, b - сколько. рез-т - время в минутах
 let reduction = function (a, b) {
   switch (a) {
@@ -100,11 +120,9 @@ let modal = function () {
 btnSearch.addEventListener("click", modal);
 btnCloseModal.addEventListener("click", modal);
 
-const data = localStorage.data ? JSON.parse(localStorage.data) : {};
-
 let process = {
-  processInfo: [],
-  reportInfo: [],
+  processInfo: {},
+  reportInfo: {},
 };
 
 let processName = document.querySelector(".process-input"),
@@ -234,29 +252,42 @@ let createReportData = function () {
   };
 };
 
-let storageDataUpdate = function () {
-  let date = formatDate();
-  data[date] = process;
-  console.log(data);
-  localStorage.data = JSON.stringify(data);
-  console.log(data);
-};
-
 let dataInput = document.querySelector(".data-input");
 dataInput.addEventListener("submit", function (event) {
   event.preventDefault();
   createReportData();
-  storageDataUpdate();
+  showNameForm();
 });
 
-let n = Object.keys(data).length;
-console.log(n);
+function showNameForm() {
+  if (!Object.keys(process.reportInfo).length || !Object.keys(process.processInfo).length) {
+    return;
+  }
+
+  const nameForm = document.querySelector('.name-form');
+  const nameInput = nameForm.querySelector('input');
+  nameForm.classList.add('name-form__visible');
+
+  nameForm.addEventListener('submit', event => {
+    event.preventDefault();
+    saveReportData(nameInput.value);
+  });
+}
+
+function saveReportData(name) {
+  const savedProcess = { ...process };
+  savedProcess.date = formatDate();
+  savedProcess.name = name;
+
+  storage.save(name, savedProcess);
+}
 
 let reportBlock = document.querySelectorAll(".report-block");
 
 let showAllBlocks = function () {
+  const data = storage.getAll();
   let cloneReportBlock;
-  for (let i = 0; i < n - 1; i++) {
+  for (let i = 0; i < data.length - 1; i++) {
     cloneReportBlock = reportBlock[i].cloneNode(true);
     reportBlock[i].after(cloneReportBlock);
     reportBlock = document.querySelectorAll(".report-block");

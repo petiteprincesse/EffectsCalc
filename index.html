@@ -11,7 +11,7 @@
 <body>
   <section>
     <div class="container">
-      <form action="#" class="data-input">
+      <form action="#" class="data-input calc-form">
         <div class="automation-object">
           <p class="process-question">Какой процесс подлежит автоматизации?</p>
           <div class="process">
@@ -74,7 +74,7 @@
               <input type="text" class="flow-input" id="frequency-after">
             </div>
           </div>
-          <button class="add-btn"></button>
+          <button class="add-btn" id="add"></button>
         </div>
         <div class="global-period">
           <div class="gl-period">
@@ -108,11 +108,22 @@
             <input type="text" class="gl-input" id="comment">
           </div>
         </div>
-        <button class="start">Рассчитать</button>
+        <footer class="btn-container">
+          <button class="btn" id="calculate">Рассчитать</button>
+        </footer>
+      </form>
+
+      <form class="name-form">
+        <div class="gl-period">
+          <label for="name" class="gl-label gl-special-label">Название отчета: </label>
+          <input type="text" class="gl-input" id="name" required>
+        </div>
+
+        <button class="btn" type="submit" id="save">Сохранить</button>
       </form>
     </div>
   </section>
-  <section>
+  <section class="report-section">
     <table>
       <tbody>
         <tr>
@@ -146,7 +157,7 @@
       </tbody>
     </table>
   </section>
-  <footer>
+  <footer class="page-footer">
     <a href="https://github.com/petiteprincesse/EffectsCalc/wiki" class="link">Прочитать инструкцию</a>
     <button class="search">Найти прошлый отчёт</button>
   </footer>
