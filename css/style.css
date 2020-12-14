@@ -255,7 +255,7 @@ table {
 }
 
 .report-name {
- margin-left: 37px;
+ margin-left: 42px;
 }
 
 table,
@@ -335,10 +335,12 @@ a {
 .modal {
   visibility: hidden;
   position: fixed;
-  top: 20rem;
-  right: 20rem;
-  bottom: 20rem;
-  left: 20rem;
+  top: 16rem;
+  right: 16rem;
+  bottom: 16rem;
+  left: 16rem;
+  overflow: scroll;
+  height: 250px;
 }
 
 
@@ -349,7 +351,6 @@ a {
   right: 16rem;
   bottom: 16rem;
   left: 16rem;
-
 }
 
 .wrapper_blur {
@@ -366,8 +367,9 @@ a {
 
 .close {
   position: fixed;
-  right: 22rem;
-  top: 21rem;
+  right: 17rem;
+  top: 17rem;
+  z-index: 1;
 }
 
 .close_report {
@@ -391,6 +393,7 @@ a {
   position: relative;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
+  margin-right: 40px;
 }
 
 .report-buttons {
@@ -472,7 +475,6 @@ a {
 .report-section {
   margin-top: 32px;
 }
-
 
 .report_data {
   margin: 50px 0 0 10px;
