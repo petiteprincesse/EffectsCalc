@@ -1,7 +1,7 @@
 "use strict";
 
 class Storage {
-  static key = 'data';
+  static key = "data";
 
   save(name, data) {
     const current = this._getCurrent();
@@ -14,7 +14,7 @@ class Storage {
   }
 
   _getCurrent() {
-    return JSON.parse(localStorage.getItem(Storage.key) || '[]');
+    return JSON.parse(localStorage.getItem(Storage.key) || "[]");
   }
 }
 
@@ -260,15 +260,18 @@ dataInput.addEventListener("submit", function (event) {
 });
 
 function showNameForm() {
-  if (!Object.keys(process.reportInfo).length || !Object.keys(process.processInfo).length) {
+  if (
+    !Object.keys(process.reportInfo).length ||
+    !Object.keys(process.processInfo).length
+  ) {
     return;
   }
 
-  const nameForm = document.querySelector('.name-form');
-  const nameInput = nameForm.querySelector('input');
-  nameForm.classList.add('name-form__visible');
+  const nameForm = document.querySelector(".name-form");
+  const nameInput = nameForm.querySelector("input");
+  nameForm.classList.add("name-form__visible");
 
-  nameForm.addEventListener('submit', event => {
+  nameForm.addEventListener("submit", (event) => {
     event.preventDefault();
     saveReportData(nameInput.value);
   });
@@ -303,10 +306,11 @@ let showAllBlocks = function () {
     if (textValue.length > 30) {
       textValue = textValue.substr(0, 30) + "... ";
     }
-    reportBlock[i].querySelector(
-      ".report-data"
-    ).textContent = textValue;
-    i++;
+    console.log(reportBlock[i]);
+    while (i < data.length - 1) {
+      reportBlock[i].querySelector(".report-data").textContent = textValue;
+      i++;
+    }
   }
 };
 
