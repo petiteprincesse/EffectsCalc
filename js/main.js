@@ -111,10 +111,12 @@ btnPlus.addEventListener("click", addFlow);
 let btnSearch = document.querySelector(".search"),
   btnCloseModal = document.querySelector(".close");
 
+let content = document.querySelector(".all-content");
 let modalWindow = document.querySelector(".modal");
 
 let modal = function () {
   modalWindow.classList.toggle("modal--opened");
+  content.classList.toggle("wrapper_blur");
 };
 
 // модалка для отчетов
