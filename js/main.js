@@ -117,8 +117,18 @@ let modal = function () {
   modalWindow.classList.toggle("modal--opened");
 };
 
+// модалка для отчетов
+let btnReport = document.querySelector(".show-btn"),
+ btnCloseModalReport = document.querySelector(".close_report");
+let modalWindowReport = document.querySelector(".modal_report");
+let modalReport = function() {
+  modalWindowReport.classList.toggle("modal--opened");
+};
+
 btnSearch.addEventListener("click", modal);
 btnCloseModal.addEventListener("click", modal);
+btnReport.addEventListener("click", modalReport);
+btnCloseModalReport.addEventListener("click", modalReport);
 
 let process = {
   processInfo: {},
