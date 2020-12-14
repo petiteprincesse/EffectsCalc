@@ -338,6 +338,17 @@ a {
   background-color: rgba(0, 125, 215, 0.7)
 }
 
+
+.modal_report {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 125, 215, 0.7)
+}
+
 .dialog {
   position: fixed;
   top: 25rem;
@@ -452,4 +463,14 @@ a {
 
 .report-section {
   margin-top: 32px;
+}
+
+.close_report {
+  position: fixed;
+  right: 26rem;
+  top: 26rem;
+}
+
+.report_data {
+  margin: 50px 0 0 10px;
 }
