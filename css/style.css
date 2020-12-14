@@ -254,6 +254,10 @@ table {
   margin-bottom: 10rem;
 }
 
+.report-name {
+ margin-left: 37px;
+}
+
 table,
 td,
 th {
@@ -331,44 +335,48 @@ a {
 .modal {
   visibility: hidden;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 125, 215, 0.7)
+  top: 20rem;
+  right: 20rem;
+  bottom: 20rem;
+  left: 20rem;
 }
 
 
 .modal_report {
   visibility: hidden;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 125, 215, 0.7)
+  top: 16rem;
+  right: 16rem;
+  bottom: 16rem;
+  left: 16rem;
+
+}
+
+.wrapper_blur {
+  filter: blur(10px);
 }
 
 .dialog {
-  position: fixed;
-  top: 25rem;
-  right: 25rem;
-  bottom: 25rem;
-  left: 25rem;
   background-color: #fff;
   border: none;
   border-top-left-radius: 55px;
   border-bottom-right-radius: 55px;
-  overflow: scroll;
+  padding: 20px;
 }
 
 .close {
   position: fixed;
-  right: 27rem;
-  top: 26rem;
+  right: 22rem;
+  top: 21rem;
 }
 
-.close:hover {
+.close_report {
+  position: fixed;
+  right: 17rem;
+  top: 17rem;
+}
+
+.close:hover, .close_report:hover {
   cursor: pointer;
 }
 
@@ -465,11 +473,6 @@ a {
   margin-top: 32px;
 }
 
-.close_report {
-  position: fixed;
-  right: 26rem;
-  top: 26rem;
-}
 
 .report_data {
   margin: 50px 0 0 10px;

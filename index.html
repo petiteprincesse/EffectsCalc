@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <div class="all-content">
   <section>
     <div class="container">
       <form action="#" class="data-input calc-form">
@@ -157,6 +158,7 @@
       </tbody>
     </table>
   </section>
+</div>
   <footer class="page-footer">
     <a href="https://github.com/petiteprincesse/EffectsCalc/wiki" class="link">Прочитать инструкцию</a>
     <a href="https://github.com/stankin/oop-app/tree/master/EffectsCalc" class="link">Репозиторий</a>
@@ -248,7 +250,39 @@
   <div class="modal_report">
     <div class="dialog">
       <button class="close_report">X</button>
-      <p class="report_data">Здесь данные по отчету</p>
+     <h3 class="report-name">Название отчёта</h3>
+      <table style="margin-bottom: 0;">
+        <tbody>
+          <tr>
+            <td>Время до автоматизации</td>
+            <td class="time-before"></td>
+            <td>Время после автоматизации</td>
+            <td class="time-after"></td>
+          </tr>
+          <tr>
+            <td>Общая частота потоков до автоматизации</td>
+            <td class="flows-frequency-before"></td>
+            <td>Общая частота потоков после автоматизации</td>
+            <td class="flows-frequency-after"></td>
+          </tr>
+          <tr>
+            <td>Общее количество потоков до автоматизации за период</td>
+            <td class="flows-quantity-before"></td>
+            <td>Общее количество потоков после автоматизации за период</td>
+            <td class="flows-quantity-after"></td>
+          </tr>
+          <tr>
+            <td>Необходимое этим потокам время до автоматизации</td>
+            <td class="required-time-before"></td>
+            <td>Необходимое этим потокам время после автоматизации</td>
+            <td class="required-time-after"></td>
+          </tr>
+          <tr>
+            <td colspan=2 class="special">Результирующая выгода во времени</td>
+            <td colspan=2 class="result"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <script src="js/main.js"></script>
