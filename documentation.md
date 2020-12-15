@@ -14,7 +14,7 @@
 
 7) Нажмите кнопку «Рассчитать» для получения отчёта, представленного в табличном виде.
 
-![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/2.PNG)
+![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/5.PNG)
 
 8) Для того, чтобы сохранить созданный отчет необходимо ввести название отчета и нажать кнопку "Сохранить". Далее, найти ранее созданный отчет можно нажав на "Найти прошлый отчет".
 
@@ -22,4 +22,4 @@
 
 9) Далее будут получены выходные данные введённого процесса автоматизации.
 
-![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/4.PNG)
+![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/6.PNG)
