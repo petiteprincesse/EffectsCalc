@@ -48,7 +48,8 @@ let reduction = function (a, b) {
 };
 
 // перевод минут в выбранное в отчете время
-let simplifier = function (a, b) {
+let simplifier = function (a, r) {
+  let b=r;
   switch (a) {
     case "minutes":
       b = b;
@@ -57,22 +58,24 @@ let simplifier = function (a, b) {
       b /= 60;
       break;
     case "shift":
-      b /= 60 / 8;
+      b /= 60 * 8;
       break;
     case "days":
-      b /= 60 / 8 / 2;
+      b /= 60 *  8 * 2;
       break;
     case "quarter":
-      b /= 60 / 8 / 2 / 4.5 / 5 / 3;
+      b /= 60 * 8 * 2 * 4.5 * 5 * 3;
       break;
     case "year":
-      b /= 60 / 8 / 2 / 4.5 / 5 / 3 / 4;
+      b /= 60 * 8 * 2 * 4.5 * 5 * 3 * 4;
       break;
     default:
     // console.error("Неизвестная ошибка");
   }
   return b;
 };
+
+
 
 let formatDate = function () {
   let date = new Date();
@@ -181,7 +184,9 @@ let flowsDataTreatment = function () {
     flowFrequencyBefore = simplifier(flowTimeUnit, flowFrequencyBefore);
     flowFrequencyAfter = simplifier(flowTimeUnit, flowFrequencyAfter);
     fullFlowsFrequencyBefore *= flowFrequencyBefore;
+    console.log('fullFlowsFrequencyBefore: ', fullFlowsFrequencyBefore);
     fullFlowsFrequencyAfter *= flowFrequencyAfter;
+    console.log('fullFlowsFrequencyAfter: ', fullFlowsFrequencyAfter);
   });
   return [fullFlowsFrequencyBefore, fullFlowsFrequencyAfter];
 };
@@ -316,6 +321,24 @@ function saveReportData(name) {
 
 // console.log(storage);
 
+
+function downloadReport(index) {
+  const reports = storage.getAll();
+  const report = reports[index];
+  const str = JSON.stringify(report);
+  const blob = new Blob([str], { type: 'application/json' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'report.json';
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+let btnDownload = document.querySelectorAll(".download-btn");
+
 let reportBlock = document.querySelectorAll(".report-block");
 
 let showAllBlocks = function () {
@@ -330,6 +353,12 @@ let showAllBlocks = function () {
     // console.log('reportBlock: ', reportBlock);
   }
   // console.log(reportBlock.length);
+  
+  btnDownload.forEach(function(item, index, btn) {
+    item.addEventListener('click', () => downloadReport(index));
+  });
+
+  console.log(reportBlock.length);
   let i = 0;
   for (const info in data) {
     // let commentValue = data[info].reportInfo.reportData;
