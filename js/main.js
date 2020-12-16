@@ -42,7 +42,7 @@ let reduction = function (a, b) {
       b *= 60 * 8 * 2 * 4.5 * 5 * 3 * 4;
       break;
     default:
-    // console.error("Неизвестная ошибка");
+      console.error("Неизвестная ошибка");
   }
   return b;
 };
@@ -69,7 +69,7 @@ let simplifier = function (a, b) {
       b /= 60 / 8 / 2 / 4.5 / 5 / 3 / 4;
       break;
     default:
-    // console.error("Неизвестная ошибка");
+      console.error("Неизвестная ошибка");
   }
   return b;
 };
@@ -116,22 +116,27 @@ let modalWindow = document.querySelector(".modal");
 
 let modal = function () {
   modalWindow.classList.toggle("modal--opened");
-  content.classList.toggle("wrapper_blur");
 };
 
 // модалка для отчетов
 let btnReport = document.querySelectorAll(".show-btn"),
-  btnCloseModalReport = document.querySelector(".close_report");
-// console.log(btnReport);
+ btnCloseModalReport = document.querySelectorAll(".close_report");
 let modalWindowReport = document.querySelector(".modal_report");
-let modalReport = function () {
-  modalWindowReport.classList.toggle("modal--opened");
-};
+
+btnReport.forEach(e => {
+  e.addEventListener('click', _=> {
+    modalWindowReport.classList.toggle("modal--opened");
+  })
+})
+
+btnCloseModalReport.forEach(e => {
+  e.addEventListener('click', _=> {
+    modalWindowReport.classList.toggle("modal--opened");
+  })
+})
 
 btnSearch.addEventListener("click", modal);
 btnCloseModal.addEventListener("click", modal);
-// btnReport.addEventListener("click", modalReport);
-btnCloseModalReport.addEventListener("click", modalReport);
 
 let process = {
   processInfo: {},
@@ -208,15 +213,8 @@ let timeBefore = document.querySelector(".time-before"),
   flowsQuantityBefore = document.querySelector(".flows-quantity-before"),
   flowsQuantityAfter = document.querySelector(".flows-quantity-after"),
   requiredTimeBefore = document.querySelector(".required-time-before"),
-  requiredTimeAfter = document.querySelector(".required-time-after"),
+  requiredTimAfter = document.querySelector(".required-time-after"),
   result = document.querySelector(".result");
-
-let nonZeroFoo = function (area) {
-  if (area.textContent == 0) {
-    area.textContent = "< 1 для выбранной отчетной единицы времени";
-    area.style.fontSize = "0.5rem";
-  }
-};
 
 let createReportData = function () {
   let processTotalTime = processDataTreatment(),
@@ -263,17 +261,9 @@ let createReportData = function () {
   requiredTimeBefore.textContent = Math.floor(
     reportData.requiredTotalTimeBefore
   );
-  requiredTimeAfter.textContent = Math.floor(reportData.requiredTotalTimeAfter);
+  requiredTimAfter.textContent = Math.floor(reportData.requiredTotalTimeAfter);
   result.textContent = Math.floor(reportData.automationBenefits);
-  nonZeroFoo(timeBefore);
-  nonZeroFoo(timeAfter);
-  nonZeroFoo(flowsFrequencyBefore);
-  nonZeroFoo(flowsFrequencyAfter);
-  nonZeroFoo(flowsQuantityBefore);
-  nonZeroFoo(flowsQuantityAfter);
-  nonZeroFoo(requiredTimeBefore);
-  nonZeroFoo(requiredTimeAfter);
-  nonZeroFoo(result);
+
   process.reportInfo.reportData = {
     comment: process.reportInfo.reportSettings.comment,
     reportDataValues: reportData,
@@ -311,10 +301,25 @@ function saveReportData(name) {
   savedProcess.name = name;
 
   storage.save(name, savedProcess);
-  // console.log(storage);
 }
 
-// console.log(storage);
+
+function downloadReport(index) {
+  const reports = storage.getAll();
+  const report = reports[index];
+  const str = JSON.stringify(report);
+  const blob = new Blob([str], { type: 'application/json' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'report.json';
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+let btnDownload = document.querySelectorAll(".download-btn");
 
 let reportBlock = document.querySelectorAll(".report-block");
 
@@ -323,95 +328,31 @@ let showAllBlocks = function () {
   let cloneReportBlock;
   for (let i = 0; i < data.length - 1; i++) {
     cloneReportBlock = reportBlock[i].cloneNode(true);
-    // console.log('cloneReportBlock: ', cloneReportBlock);
     reportBlock[i].after(cloneReportBlock);
-    // console.log('reportBlock[i]: ', reportBlock[i]);
     reportBlock = document.querySelectorAll(".report-block");
-    // console.log('reportBlock: ', reportBlock);
   }
-  // console.log(reportBlock.length);
+
+  btnDownload.forEach(function(item, index, btn) {
+    item.addEventListener('click', () => downloadReport(index))
+  });
+
+  console.log(reportBlock.length);
   let i = 0;
   for (const info in data) {
     // let commentValue = data[info].reportInfo.reportData;
-    // // console.log('commentValue: ', commentValue);
-    let textValue = `${data[info].name} от ${data[info].date}`;
+    // console.log('commentValue: ', commentValue);
+    let textValue = `${data[info]} от ${info}`;
     textValue = textValue.trim();
-    // console.log('textValue: ', textValue);
     // let textValueLength = textValue.length;
-    // if (textValue.length > 30) {
-    //   textValue = textValue.substr(0, 30) + "... ";
-    // }
-    // // console.log(reportBlock[i]);
-    reportBlock[i].querySelector(".report-data").textContent = textValue;
-    i++;
+    if (textValue.length > 30) {
+      textValue = textValue.substr(0, 30) + "... ";
+    }
+    console.log(reportBlock[i]);
+    while (i < data.length - 1) {
+      reportBlock[i].querySelector(".report-data").textContent = textValue;
+      i++;
+    }
   }
-
-  btnReport = document.querySelectorAll(".show-btn");
-  // console.log('btnReport: ', btnReport);
-  btnReport.forEach(function (item) {
-    item.addEventListener("click", modalReport);
-  });
-
-  let reports = document.querySelectorAll(".report-block");
-  reports.forEach((e) => {
-    // console.log(e);
-    e.addEventListener("click", function (event) {
-      let reportData = event.target.parentNode.parentNode.querySelector(
-        ".report-data"
-      ).textContent;
-      // console.log('reportData: ', reportData);
-      let reportName = reportData.split(" от ");
-      // console.log(reportName);
-      let happenedEvent = event.target.textContent;
-      // console.log('happenedEvent:', happenedEvent);
-      let modalReport = document.querySelector(".modal_report");
-      // console.log('modalReport:', modalReport);
-
-      if (happenedEvent == "Показать") {
-        for (const info in data) {
-          if (
-            data[info].name == reportName[0] &&
-            data[info].date == reportName[1]
-          ) {
-            let reportValues =
-              data[info].reportInfo.reportData.reportDataValues;
-            modalReport.querySelector(".report-name").textContent =
-              data[info].name;
-            modalReport.querySelector(".time-before").textContent =
-              reportValues.processTimeBefore;
-            modalReport.querySelector(".time-after").textContent =
-              reportValues.processTimeAfter;
-            modalReport.querySelector(".flows-frequency-before").textContent =
-              reportValues.flowsTotalFrequencyBefore;
-            modalReport.querySelector(".flows-frequency-after").textContent =
-              reportValues.flowsTotalFrequencyAfter;
-            modalReport.querySelector(".flows-quantity-before").textContent =
-              reportValues.flowsTotalQuantityBefore;
-            modalReport.querySelector(".flows-quantity-after").textContent =
-              reportValues.flowsTotalQuantityAfter;
-            modalReport.querySelector(".required-time-before").textContent =
-              reportValues.requiredTotalTimeBefore;
-            modalReport.querySelector(".required-time-after").textContent =
-              reportValues.requiredTotalTimeAfter;
-            modalReport.querySelector(".result").textContent =
-              reportValues.automationBenefits;
-            nonZeroFoo(modalReport.querySelector(".time-before"));
-            nonZeroFoo(modalReport.querySelector(".time-after"));
-            nonZeroFoo(modalReport.querySelector(".flows-frequency-before"));
-            nonZeroFoo(modalReport.querySelector(".flows-frequency-after"));
-            nonZeroFoo(modalReport.querySelector(".flows-quantity-before"));
-            nonZeroFoo(modalReport.querySelector(".flows-quantity-after"));
-            nonZeroFoo(modalReport.querySelector(".required-time-before"));
-            nonZeroFoo(modalReport.querySelector(".required-time-after"));
-            nonZeroFoo(modalReport.querySelector(".result"));
-            modalReport.querySelector(".result").style.color = "#abсс33";
-          }
-        }
-      } else {
-        // console.log('error');
-      }
-    });
-  });
 };
 
 showAllBlocks();
