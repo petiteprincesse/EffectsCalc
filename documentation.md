@@ -22,9 +22,11 @@
 
 9)  Далее, найти ранее созданный отчет можно нажав на "Найти прошлый отчет".
 
-![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/7.PNG)
+![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/9.PNG)
 
 9) Нажмите кнопку "Показать" для получения выходных данных любого из прошлых отчётов. Также при необходимости можно скачать отчёт, нажав кнопку "Скачать".
+
+![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/7.PNG)
 
 ![A](https://github.com/petiteprincesse/EffectsCalc/blob/master/documentation/8.PNG)
 
