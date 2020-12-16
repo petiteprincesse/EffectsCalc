@@ -255,7 +255,8 @@ table {
 }
 
 .report-name {
- margin-left: 42px;
+ margin-left: 29px;
+ margin-bottom:10px;
 }
 
 table,
@@ -333,28 +334,25 @@ a {
 }
 
 .modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   visibility: hidden;
   position: fixed;
-  top: 16rem;
-  right: 16rem;
-  bottom: 16rem;
-  left: 16rem;
-  overflow: scroll;
-  height: 250px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 125, 215, 0.7);
 }
 
 
 .modal_report {
   visibility: hidden;
   position: fixed;
-  top: 16rem;
-  right: 16rem;
-  bottom: 16rem;
-  left: 16rem;
-}
-
-.wrapper_blur {
-  filter: blur(10px);
+  z-index: 10;
 }
 
 .dialog {
@@ -363,20 +361,41 @@ a {
   border-top-left-radius: 55px;
   border-bottom-right-radius: 55px;
   padding: 20px;
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 250px;
+  width: 600px;
 }
 
-.close {
+.dialog_header {
+  display:flex;
+  justify-content: flex-end;
+  align-items: center;
   position: fixed;
-  right: 17rem;
-  top: 17rem;
-  z-index: 1;
+  width: 550px;
+}
+
+.dialog--report {
+  overflow: hidden;
+  border-bottom-right-radius: 0;
+}
+
+.dialog_report--header {
+  display: flex;
+  justify-content: space-between;
+  width: 560px;
 }
 
 .close_report {
-  position: fixed;
-  right: 17rem;
-  top: 17rem;
+  width: 25px;
+  height: 21px;
 }
+
+.close {
+  right: 0;
+  z-index: 1;
+}
+
 
 .close:hover, .close_report:hover {
   cursor: pointer;
@@ -393,7 +412,7 @@ a {
   position: relative;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  margin-right: 40px;
+  margin-right: 15px;
 }
 
 .report-buttons {
@@ -448,7 +467,7 @@ a {
 }
 
 .report-block:first-of-type {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 }
 
 .report-data {
